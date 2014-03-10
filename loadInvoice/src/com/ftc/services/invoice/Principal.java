@@ -55,12 +55,14 @@ public class Principal {
 					Cabecera cabecera = procesaXML(xfile.getAbsolutePath());
 					registros.add(cabecera);
 				}
+				
 				int resultado = escribeSalida(folderOut, registros);
 				if (resultado < 0) {
 					System.out
 							.println("Hubo un error durante la escritura de los registros. Revise el log de salida.");
 					System.exit(1);
 				}
+				
 			} else {
 				System.out
 						.println("La ruta especificada no es un directorio valido ["
@@ -146,7 +148,7 @@ public class Principal {
 				System.out.println("Tipo de cambio : "
 						+ eElement.getAttribute("TipoCambio"));
 				System.out.println("Moneda : "
-						+ eElement.getAttribute("moneda"));
+						+ eElement.getAttribute("Moneda"));
 				System.out.println("Total : " + eElement.getAttribute("total"));
 				System.out.println("Metodo de pago : "
 						+ eElement.getAttribute("metodoDePago"));
