@@ -26,6 +26,8 @@ public class Cabecera implements Serializable {
 	private double totalImpuestosTrasladados;
 	private String uuid;
 	private String strFechaTimbrado;
+	private String rfcReceptor;
+	private String nombreReceptor;
 	
 	public Cabecera() {
 		System.out.println("Se genero la cabecera de factura.");
@@ -265,6 +267,22 @@ public class Cabecera implements Serializable {
 		this.strFechaTimbrado = strFechaTimbrado;
 	}
 
+	public String getRfcReceptor() {
+		return rfcReceptor;
+	}
+
+	public void setRfcReceptor(String rfcReceptor) {
+		this.rfcReceptor = rfcReceptor;
+	}
+
+	public String getNombreReceptor() {
+		return nombreReceptor;
+	}
+
+	public void setNombreReceptor(String nombreReceptor) {
+		this.nombreReceptor = nombreReceptor;
+	}
+
 	public static String titulosCommaSeparateValues(){
 		StringBuilder builder = new StringBuilder();
 		builder.append("\"").append("RFC").append("\",");
@@ -274,9 +292,11 @@ public class Cabecera implements Serializable {
 		builder.append("\"").append("Fecha").append("\",");
 		builder.append("\"").append("Lugar de expedicion").append("\",");
 		builder.append("\"").append("UUID").append("\",");
-		builder.append("\"").append("Fecha de timbrado").append("\",");
+		builder.append("\"").append("Fecha de timbrado").append("\",");		
 		builder.append("\"").append("Forma de pago").append("\",");
-		builder.append("\"").append("Moneda").append("\",");
+		builder.append("\"").append("Moneda").append("\",");		
+		builder.append("\"").append("RFC-Receptor").append("\",");
+		builder.append("\"").append("Receptor").append("\",");		
 		builder.append("\"").append("Subtotal").append("\",");
 		builder.append("\"").append("Descuento").append("\",");
 		builder.append("\"").append("Impuestos trasladados").append("\",");
@@ -295,7 +315,9 @@ public class Cabecera implements Serializable {
 		builder.append("\"").append(uuid).append("\",");
 		builder.append("\"").append(strFechaTimbrado).append("\",");
 		builder.append("\"").append(formaDePago).append("\",");
-		builder.append("\"").append(moneda).append("\",");
+		builder.append("\"").append(moneda).append("\",");		
+		builder.append("\"").append(rfcReceptor).append("\",");
+		builder.append("\"").append(nombreReceptor).append("\",");
 		builder.append(subTotal).append(",");
 		builder.append(descuento).append(",");
 		builder.append(totalImpuestosTrasladados).append(",");

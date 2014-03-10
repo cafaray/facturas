@@ -185,6 +185,21 @@ public class Principal {
 			}
 		}
 
+		nList = doc.getElementsByTagName("cfdi:Receptor");
+		System.out.println("----------------------------");
+		for(int temp=0;temp<nList.getLength();temp++){
+			Node nNode = nList.item(temp);
+			System.out.println("\nCurrent Element :" + nNode.getNodeName());
+			if(nNode.getNodeType()==Node.ELEMENT_NODE){
+				Element eElement = (Element)nNode;
+				System.out.println("RFC : " + eElement.getAttribute("rfc"));
+				System.out.println("Nombre : "
+						+ eElement.getAttribute("nombre"));
+				cabecera.setRfcReceptor(eElement.getAttribute("rfc"));
+				cabecera.setNombreReceptor(eElement.getAttribute("nombre"));
+			}
+		}
+		
 		nList = doc.getElementsByTagName("cfdi:Impuestos");
 		System.out.println("----------------------------");
 		for (int temp = 0; temp < nList.getLength(); temp++) {
