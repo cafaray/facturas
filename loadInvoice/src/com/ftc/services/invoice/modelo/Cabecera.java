@@ -24,6 +24,8 @@ public class Cabecera implements Serializable {
 	private String nombre;
 	private String strTotalImpuestosTrasladados;
 	private double totalImpuestosTrasladados;
+	private String uuid;
+	private String strFechaTimbrado;
 	
 	public Cabecera() {
 		System.out.println("Se genero la cabecera de factura.");
@@ -37,6 +39,17 @@ public class Cabecera implements Serializable {
 		this.nombre = nombre;
 		this.formaDePago = formaDePago;
 	}
+	
+	public Cabecera(String serie, String folio, String fecha, String rfc, String nombre, String formaDePago, String uuid, String fechaTimbrado){
+		this.serie = serie;
+		this.folio = folio;
+		this.strFecha = fecha;
+		this.rfc = rfc;
+		this.nombre = nombre;
+		this.formaDePago = formaDePago;
+		this.setUuid(uuid);
+		this.setStrFechaTimbrado(fechaTimbrado);
+	}	
 	
 	public void asignaValores(String subTotal, String descuento, String total, String impuestosTrasladados){
 		this.setStrSubTotal(subTotal);
@@ -236,6 +249,22 @@ public class Cabecera implements Serializable {
 	}
 
 
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getStrFechaTimbrado() {
+		return strFechaTimbrado;
+	}
+
+	public void setStrFechaTimbrado(String strFechaTimbrado) {
+		this.strFechaTimbrado = strFechaTimbrado;
+	}
+
 	public static String titulosCommaSeparateValues(){
 		StringBuilder builder = new StringBuilder();
 		builder.append("\"").append("RFC").append("\",");
@@ -244,6 +273,8 @@ public class Cabecera implements Serializable {
 		builder.append("\"").append("Folio").append("\",");
 		builder.append("\"").append("Fecha").append("\",");
 		builder.append("\"").append("Lugar de expedicion").append("\",");
+		builder.append("\"").append("UUID").append("\",");
+		builder.append("\"").append("Fecha de timbrado").append("\",");
 		builder.append("\"").append("Forma de pago").append("\",");
 		builder.append("\"").append("Moneda").append("\",");
 		builder.append("\"").append("Subtotal").append("\",");
@@ -261,6 +292,8 @@ public class Cabecera implements Serializable {
 		builder.append("\"").append(folio).append("\",");
 		builder.append("\"").append(strFecha).append("\",");
 		builder.append("\"").append(lugarExpedicion).append("\",");
+		builder.append("\"").append(uuid).append("\",");
+		builder.append("\"").append(strFechaTimbrado).append("\",");
 		builder.append("\"").append(formaDePago).append("\",");
 		builder.append("\"").append(moneda).append("\",");
 		builder.append(subTotal).append(",");
@@ -299,6 +332,10 @@ public class Cabecera implements Serializable {
 		builder.append(rfc);
 		builder.append(", nombre=");
 		builder.append(nombre);
+		builder.append(", uuid=");
+		builder.append(uuid);
+		builder.append(", fechaTimbrado=");
+		builder.append(strFechaTimbrado);
 		builder.append(", totalImpuestosTrasladados=");
 		builder.append(totalImpuestosTrasladados);
 		builder.append("]");

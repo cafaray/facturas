@@ -55,14 +55,14 @@ public class Principal {
 					Cabecera cabecera = procesaXML(xfile.getAbsolutePath());
 					registros.add(cabecera);
 				}
-				
+
 				int resultado = escribeSalida(folderOut, registros);
 				if (resultado < 0) {
 					System.out
 							.println("Hubo un error durante la escritura de los registros. Revise el log de salida.");
 					System.exit(1);
 				}
-				
+
 			} else {
 				System.out
 						.println("La ruta especificada no es un directorio valido ["
@@ -161,7 +161,7 @@ public class Principal {
 				cabecera.setStrSubTotal(eElement.getAttribute("subTotal"));
 				cabecera.setStrDescuento(eElement.getAttribute("descuento"));
 				cabecera.setTipoCambio(eElement.getAttribute("TipoCambio"));
-				cabecera.setMoneda(eElement.getAttribute("moneda"));
+				cabecera.setMoneda(eElement.getAttribute("Moneda"));
 				cabecera.setStrTotal(eElement.getAttribute("total"));
 				cabecera.setMetodoDePago(eElement.getAttribute("metodoDePago"));
 				cabecera.setLugarExpedicion(eElement
@@ -199,6 +199,25 @@ public class Principal {
 				// eElement.getElementsByTagName("firstname").item(0).getTextContent()
 			}
 		}
+		nList = doc.getElementsByTagName("tfd:TimbreFiscalDigital");
+		System.out.println("----------------------------");
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+			System.out.println("\nCurrent Element :" + nNode.getNodeName());
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element eElement = (Element) nNode;
+				System.out.println("UUID : " + eElement.getAttribute("UUID"));
+
+				System.out.println("Fecha de timbrado: "
+						+ eElement.getAttribute("FechaTimbrado"));
+
+				cabecera.setUuid(eElement.getAttribute("UUID"));
+				cabecera.setStrFechaTimbrado(eElement
+						.getAttribute("FechaTimbrado"));
+				// eElement.getElementsByTagName("firstname").item(0).getTextContent()
+			}
+		}
+
 		// System.out.println("Valor del objeto: "+cabecera.toString());
 		return cabecera;
 	}
