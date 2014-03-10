@@ -116,6 +116,7 @@ public class Principal {
 	private static Cabecera procesaXML(String file) throws IOException,
 			ParserConfigurationException, SAXException {
 		File fXmlFile = new File(file);
+		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
@@ -126,16 +127,21 @@ public class Principal {
 		doc.getDocumentElement().normalize();
 		System.out.println("Root element :"
 				+ doc.getDocumentElement().getNodeName());
-
-		NodeList nList = doc.getElementsByTagName("cfdi:Comprobante");
+		boolean esCFDI = true;
+		esCFDI = doc.getDocumentElement().getNodeName().toUpperCase().startsWith("CFDI");
+		System.out.println("El documento es CFDI? "+esCFDI);
+		String prefijo = (esCFDI?"cfdi:":"");
+		
+		NodeList nList = doc.getElementsByTagName(prefijo+ "Comprobante");
+		
 		System.out.println("----------------------------");
 		Cabecera cabecera = new Cabecera();
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
 			System.out.println("\nCurrent Element :" + nNode.getNodeName());
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
-
+				Element eElement = (Element) nNode;				
+				
 				System.out.println("Serie : " + eElement.getAttribute("serie"));
 				System.out.println("Folio : " + eElement.getAttribute("folio"));
 				System.out.println("Fecha : " + eElement.getAttribute("fecha"));
@@ -169,7 +175,7 @@ public class Principal {
 			}
 		}
 
-		nList = doc.getElementsByTagName("cfdi:Emisor");
+		nList = doc.getElementsByTagName(prefijo+ "Emisor");
 		System.out.println("----------------------------");
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
@@ -185,7 +191,7 @@ public class Principal {
 			}
 		}
 
-		nList = doc.getElementsByTagName("cfdi:Receptor");
+		nList = doc.getElementsByTagName(prefijo+ "Receptor");
 		System.out.println("----------------------------");
 		for(int temp=0;temp<nList.getLength();temp++){
 			Node nNode = nList.item(temp);
@@ -200,7 +206,7 @@ public class Principal {
 			}
 		}
 		
-		nList = doc.getElementsByTagName("cfdi:Impuestos");
+		nList = doc.getElementsByTagName(prefijo+ "Impuestos");
 		System.out.println("----------------------------");
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
@@ -215,7 +221,7 @@ public class Principal {
 			}
 		}
 		
-		nList = doc.getElementsByTagName("cfdi:Traslados");
+		nList = doc.getElementsByTagName(prefijo+ "Traslados");
 		System.out.println("----------------------------");
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
