@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class Cabecera implements Serializable {
 
+	public final static String IMPUESTO_IVA = "IVA";
+	public final static String IMPUESTO_IEPS = "IEPS";
+	
 	private static final long serialVersionUID = 8372722219280582677L;
 
 	private String serie;
@@ -28,6 +31,17 @@ public class Cabecera implements Serializable {
 	private String strFechaTimbrado;
 	private String rfcReceptor;
 	private String nombreReceptor;
+	
+	private String iva_strTasa;
+	private double iva_tasa;
+	private String iva_strImporte;
+	private double iva_importe;
+	
+	private String ieps_strTasa = "0";
+	private double ieps_tasa = 0;
+	private String ieps_strImporte = "0";
+	private double ieps_importe = 0;
+	
 	
 	public Cabecera() {
 		System.out.println("Se genero la cabecera de factura.");
@@ -283,6 +297,103 @@ public class Cabecera implements Serializable {
 		this.nombreReceptor = nombreReceptor;
 	}
 
+	public String getIva_strTasa() {
+		return iva_strTasa;
+	}
+
+	public void setIva_strTasa(String iva_strTasa) {
+		try{
+			this.iva_tasa = Double.parseDouble(iva_strTasa);
+			this.iva_strTasa = iva_strTasa;
+		}catch(NumberFormatException e){
+			this.iva_tasa = 0;
+			this.iva_strTasa = "0";
+			System.out.println("El valor asignado a tasa IVA no parece ser un numero ["+iva_strTasa+"].");
+		}
+	}
+
+	public double getIva_tasa() {
+		return iva_tasa;
+	}
+
+	public void setIva_tasa(double iva_tasa) {
+		this.iva_tasa = iva_tasa;
+		this.iva_strTasa = String.valueOf(iva_tasa);
+	}
+
+	public String getIva_strImporte() {
+		return iva_strImporte;
+	}
+
+	public void setIva_strImporte(String iva_strImporte) {		
+		try{
+			this.iva_importe = Double.parseDouble(iva_strImporte);
+			this.iva_strImporte = iva_strImporte;
+		}catch(NumberFormatException e){
+			this.iva_importe = 0;
+			this.iva_strImporte = "0";
+			System.out.println("El valor asignado a importe IVA no parece ser un numero ["+iva_strImporte+"].");
+		}
+	}
+
+	public double getIva_importe() {
+		return iva_importe;
+	}
+
+	public void setIva_importe(double iva_importe) {
+		this.iva_importe = iva_importe;
+		this.iva_strImporte = String.valueOf(iva_importe);
+	}
+
+	public String getIeps_strTasa() {
+		return ieps_strTasa;
+	}
+
+	public void setIeps_strTasa(String ieps_strTasa) {
+		try{
+			this.ieps_tasa = Double.parseDouble(ieps_strTasa);
+			this.ieps_strTasa = ieps_strTasa;
+		}catch(NumberFormatException e){
+			this.ieps_tasa = 0;
+			this.ieps_strTasa = "0";
+			System.out.println("El valor asignado a tasa IEPS no parece ser un numero ["+ieps_strTasa+"].");
+		}
+	}
+
+	public double getIeps_tasa() {
+		return ieps_tasa;
+	}
+
+	public void setIeps_tasa(double ieps_tasa) {
+		this.ieps_tasa = ieps_tasa;
+		this.ieps_strTasa = String.valueOf(ieps_tasa);
+	}
+
+	public String getIeps_strImporte() {
+		return ieps_strImporte;
+	}
+
+	public void setIeps_strImporte(String ieps_strImporte) {
+		try{
+			this.ieps_importe = Double.parseDouble(ieps_strImporte);
+			this.ieps_strImporte = ieps_strImporte;
+		}catch(NumberFormatException e){
+			this.ieps_importe = 0;
+			this.ieps_strImporte = "0";
+			System.out.println("El valor asignado a importe IEPS no parece ser un numero ["+ieps_strImporte+"].");
+		}
+		
+	}
+
+	public double getIeps_importe() {
+		return ieps_importe;
+	}
+
+	public void setIeps_importe(double ieps_importe) {
+		this.ieps_importe = ieps_importe;
+		this.ieps_strImporte = String.valueOf(ieps_importe);
+	}	
+
 	public static String titulosCommaSeparateValues(){
 		StringBuilder builder = new StringBuilder();
 		builder.append("\"").append("RFC").append("\",");
@@ -300,6 +411,10 @@ public class Cabecera implements Serializable {
 		builder.append("\"").append("Subtotal").append("\",");
 		builder.append("\"").append("Descuento").append("\",");
 		builder.append("\"").append("Impuestos trasladados").append("\",");
+		builder.append("\"").append("Tasa IVA").append("\",");
+		builder.append("\"").append("IVA").append("\",");
+		builder.append("\"").append("Tasa IEPS").append("\",");
+		builder.append("\"").append("IEPS").append("\",");
 		builder.append("\"").append("Total").append("\"");
 		return builder.toString();
 	}
@@ -321,6 +436,10 @@ public class Cabecera implements Serializable {
 		builder.append(subTotal).append(",");
 		builder.append(descuento).append(",");
 		builder.append(totalImpuestosTrasladados).append(",");
+		builder.append(iva_tasa).append(",");
+		builder.append(iva_importe).append(",");
+		builder.append(ieps_tasa).append(",");
+		builder.append(ieps_importe).append(",");
 		builder.append(total);
 		return builder.toString();
 	}

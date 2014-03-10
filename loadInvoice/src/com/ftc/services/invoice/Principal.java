@@ -214,6 +214,43 @@ public class Principal {
 				// eElement.getElementsByTagName("firstname").item(0).getTextContent()
 			}
 		}
+		
+		nList = doc.getElementsByTagName("cfdi:Traslados");
+		System.out.println("----------------------------");
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+			System.out.printf("\nCurrent Element : %s-%s%n", nNode.getNodeType() , nNode.getNodeName());
+			
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				//Element eElement = (Element) nNode;
+				NodeList nodes = nNode.getChildNodes();				
+				System.out.println("Impuestos encontrados : "+ nodes.getLength());				
+				for(int ximpuesto = 0; ximpuesto<nodes.getLength();ximpuesto++){
+					Node nNodeImpuesto = nodes.item(ximpuesto);
+					
+					if(nNodeImpuesto.getNodeType()==Node.ELEMENT_NODE){
+						System.out.printf("\nCurrent Element : %s-%s%n", nNodeImpuesto.getNodeType() , nNodeImpuesto.getNodeName());
+						Element xElement = (Element)nNodeImpuesto;
+						String impuesto, tasa, importe;
+						impuesto = xElement.getAttribute("impuesto");
+						tasa = xElement.getAttribute("tasa");
+						importe = xElement.getAttribute("importe");
+						System.out.printf("impuesto = %s, tasa = %s, importe = %s %n", impuesto, tasa, importe);
+						if (impuesto.equals(Cabecera.IMPUESTO_IVA)){
+							cabecera.setIva_strTasa(tasa);
+							cabecera.setIva_strImporte(importe);
+						}else if (impuesto.equals(Cabecera.IMPUESTO_IEPS)){
+							cabecera.setIeps_strTasa(tasa);
+							cabecera.setIeps_strImporte(importe);							
+						}else{
+							System.out.println("Impuesto no detectado en el objeto: "+impuesto);
+						}
+					}
+				}
+			}
+		}
+		
+		
 		nList = doc.getElementsByTagName("tfd:TimbreFiscalDigital");
 		System.out.println("----------------------------");
 		for (int temp = 0; temp < nList.getLength(); temp++) {
