@@ -1,0 +1,37 @@
+Para poder ejecutar el jar, recomiendo hacer un .cmd o .sh; aqui colocare un
+ejemplo de .cmd para la gente de Windows porque seguramente es la menos
+experimentada en la consola, espero que les sea de utilidad.
+-------------------------------------------------------------------------
+                           S C R I P T
+-------------------------------------------------------------------------
+#echo off
+
+# indica a la aplicacion el directorio donde buscara los XML
+set dir=[C:\RUTA_DIRECTORIO_FACTURAS\]
+
+# indica la ubicacion del archivo java que contiene la aplicacion
+set appName=[C:\RUTA_ARCHIVO_JAR\]loadInvoice.jar
+
+# establece el nombre del archivo de salida, no es necesario colocar la
+extension
+set nombreArchivo=hashpipe 
+
+# establece variables de entorno java, debe ser version 1.7.x
+set JDKDIR=[C:\Archivos de programa\java\JDK1.7.0_x]
+set path=%JDKDIR%\bin
+set classpath=%JDKDIR%\jre\lib\rt.jar
+
+java -jar %appName% --dir=%dir% --file=%nombreArchivo%
+
+pause
+
+-------------------------------------------------------------------------
+                    F I N A L  S C R I P T
+-------------------------------------------------------------------------
+
+Con esto podras dar doble click sobre el archivo cmd y si esta correctamente
+configurado iniciara la aplicacion. 
+
+Otra forma de hacerlo es atraves de la variable de entorno PATH, agregando la
+ubicacion de la plataforma JDK/JRE. Con esto te podras evitar la asignacion de
+las ultimas tres variables. 
